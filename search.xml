@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>second</title>
-    <url>/2020/03/18/second/</url>
-    <content><![CDATA[<h1 id="yiji"><a href="#yiji" class="headerlink" title="yiji"></a>yiji</h1><h2 id="erji"><a href="#erji" class="headerlink" title="erji"></a>erji</h2><h4 id="siji"><a href="#siji" class="headerlink" title="siji"></a>siji</h4><p><img src="/2020/03/18/second/bilibili.png" alt></p>
-]]></content>
-      <categories>
-        <category>category</category>
-      </categories>
-      <tags>
-        <tag>tag1</tag>
-        <tag>tag2</tag>
-        <tag>...</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hello</title>
     <url>/2020/03/18/hello/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -31,13 +17,14 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 <p><img src="/2020/03/18/hello/s.jpg" alt></p>
-<p>nihao</p>
+<p>试验品</p>
 ]]></content>
       <categories>
-        <category>category</category>
+        <category>随笔</category>
       </categories>
       <tags>
-        <tag>tag1</tag>
+        <tag>随笔</tag>
+        <tag>生活</tag>
       </tags>
   </entry>
 </search>
