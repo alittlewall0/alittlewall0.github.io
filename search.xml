@@ -1,23 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hello</title>
-    <url>/2020/03/18/hello/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h3 id><a href="#" class="headerlink" title></a><a id="more"></a></h3><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+    <title>一切都要从一只蝙蝠说起......</title>
+    <url>/2020/03/18/firstblog/</url>
+    <content><![CDATA[<p>为什么要写博客Blog? 一切的一切还要从2020年的一只蝙蝠说起$\cdots \cdots$</p>
+<a id="more"></a>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<img src="/2020/03/18/firstblog/batman.jpg" alt="Batman" style="zoom:50%;">
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<p><img src="/2020/03/18/hello/s.jpg" alt></p>
-<p>试验品</p>
+<p>放错图了，应该是这个</p>
+<p><img src="/2020/03/18/firstblog/bat.jpg" alt="Bat"></p>
+<p>哈哈，抖个机灵。</p>
+<p>其实，搭网站写博客这个念头也确实在脑海中盘桓了很长时间了，但一直在校醉心于<del>科研</del>摸鱼的我也是苦于没有时间，如今禁足在家，一没环境，二没条件，进度不畅之下一直在搞毕设也难免烦躁，搭网站做博客的念头也随之而起了。幸而有之前做网站送女朋友生日礼物的经验，买域名搭网站选主题改配置，两天时间也就一气呵成了。</p>
+<p>网站做好了，总是要写些什么，思来想去第一篇随笔不如写写为什么要做Blog？</p>
+<p>说来原因也简单，一为好玩，二为记录，<del>三为交流（估计也没人看）</del>。</p>
+<p>一为<strong>好玩</strong>，一切事物的最大驱动力。</p>
+<p>最近<em>求之不得，反求诸己</em> 被外交方言人带火了，虽然没有什么求之不得的事情，但是反求诸己来说，宅家期间，让我对任何事物都很淡漠，很难有说让我汲汲于此的事情，而这恰恰是一件。其实或许也是因为科研的枯燥，这个恰恰能够迅速带来反馈和满足。</p>
+<p>二为<strong>记录</strong>，自我提升的捷径。</p>
+<p>盘点我马上过去的两年研究生生活，在工大学习了很多，如果单纯罗列接触过的知识来说，<em>人工智能<em>、</em>神经网络<em>、</em>机器人原理<em>、</em>控制理论<em>、</em>贝叶斯定理<em>、</em>高斯模型<em>、</em>自动驾驶<em>、</em>决策规划<em>、</em>感知控制<em>、</em>ROS<em>、</em>Tensorflow</em> 等等，似乎是学到了很多新知识，但又好像是没有。如今反思，知识上的似是而非是因为没有能够形成闭环，学习到的很多知识，往往都是不求甚解，没有及时的输出，就会似懂非懂。我不是一个擅长一针见血提出问题的人，相比于此，我更倾向于应用过程中慢慢发现问题，再回头去看去解决。因此，一个输出的平台也就迫在眉睫，在输出自己学习到的知识的同时，梳理其中的脉络，进行自我提升。拒绝做掰棒子的狗熊！！！</p>
+<p>我很喜欢拼图。每一块拼图都应该在属于他自己的位置上，所有拼图一起构成整个图案。学习的过程就是在拼图，每个人的知识体系就是一个完整的图案，学习到的知识是一块小的拼图，梳理脉络的过程也就是在找到拼图他自己应该在的位置。</p>
+<p>最后，送上网站结构树。</p>
+<ul>
+<li>Self-Driving Study<ul>
+<li>随笔—记录生活，记录些想说的</li>
+<li>刷题—生命不息，刷题不止</li>
+<li>网站—记录下网站的成长</li>
+<li>模式识别—哈哈，虽然叫的大，但其实主要也就是记录研究生期间学习的贝叶斯定理和采样<ul>
+<li>贝叶斯定理</li>
+<li>高斯模型</li>
+<li>MC采样</li>
+</ul>
+</li>
+<li>自动驾驶—主力内容，加油吧，小菜鸟！！！<ul>
+<li>ROS</li>
+<li>Apollo</li>
+<li>Docker</li>
+<li>决策规划</li>
+<li>感知</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>随笔</category>
