@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="工大两年研究生期间，看的、听得最多的词就是贝叶斯Bayes了。2019年元旦零点时，发了条朋友圈——2018-2019，贝叶斯陪我跨年。当时虽然只是在准备人工智能原理的考试，但是也确实没有想到，贝叶斯Bayes这个词竟然贯穿了我的研究生生涯。虽然有很多博主有关贝叶斯的文章都珠玉在前，但是因为领域的原因，所有人的也都不恰恰是我想要的。我脑海中关于贝叶斯Bayes的知识拼图的建构，也是看了很多来源的文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;一&gt; 贝叶斯定理是什么？">
+<meta property="og:url" content="http://yoursite.com/2020/03/19/bayes/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="工大两年研究生期间，看的、听得最多的词就是贝叶斯Bayes了。2019年元旦零点时，发了条朋友圈——2018-2019，贝叶斯陪我跨年。当时虽然只是在准备人工智能原理的考试，但是也确实没有想到，贝叶斯Bayes这个词竟然贯穿了我的研究生生涯。虽然有很多博主有关贝叶斯的文章都珠玉在前，但是因为领域的原因，所有人的也都不恰恰是我想要的。我脑海中关于贝叶斯Bayes的知识拼图的建构，也是看了很多来源的文">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-19T05:09:40.000Z">
+<meta property="article:modified_time" content="2020-03-26T10:18:26.762Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="模式识别">
+<meta property="article:tag" content="贝叶斯定理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/19/bayes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title><一> 贝叶斯定理是什么？ | Hexo</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?484c210630f5183e59d6283165c7b1f6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/19/bayes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          <一> 贝叶斯定理是什么？
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-19 13:09:40" itemprop="dateCreated datePublished" datetime="2020-03-19T13:09:40+08:00">2020-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-26 18:18:26" itemprop="dateModified" datetime="2020-03-26T18:18:26+08:00">2020-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB/" itemprop="url" rel="index"><span itemprop="name">模式识别</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>工大两年研究生期间，看的、听得最多的词就是贝叶斯<em>Bayes</em>了。2019年元旦零点时，发了条朋友圈——<em>2018-2019，贝叶斯陪我跨年</em>。当时虽然只是在准备人工智能原理的考试，但是也确实没有想到，贝叶斯<em>Bayes</em>这个词竟然贯穿了我的研究生生涯。虽然有很多博主有关贝叶斯的文章都珠玉在前，但是因为领域的原因，所有人的也都不恰恰是我想要的。我脑海中关于贝叶斯<em>Bayes</em>的知识拼图的建构，也是看了很多来源的文章才慢慢形成的。因此虽然有这么多珠玉在前的文章，但我依旧还是想从我的角度、从我的理解来解释：贝叶斯到底是什么，形成感性认识</p>
+<a id="more"></a>
+
+<h1 id="贝叶斯定理是什么"><a href="#贝叶斯定理是什么" class="headerlink" title="贝叶斯定理是什么"></a>贝叶斯定理是什么</h1><p>首先上公式：<br>$$<br>P(x|y)=\frac{P(x)P(y|x)}{P(y)}<br>$$<br>其中，$P(x)$是$x$的先验概率，$P(y|x)$是似然概率，$P(x|y)$是$x$的后验概率，也可以说是条件概率，$P(y)$是归一化常数，也是$y$的先验概率。</p>
+<p>关于贝叶斯定理如何被发现的就不再赘述，这个公式看似反直觉，但是贝叶斯体系中的所有理论其实都是由这个公式发展而来。基于此，这整个概率体系甚至分为了经典概率学派和贝叶斯学派，其区别关键就在于对于概率的认识，经典学派认为，概率就是概率，其就像 $1+1=2$ 那样确定，是由大量统计出来的，由频数和频率来确定的。但是贝叶斯学派并不如此认为，贝叶斯学派认为概率是不可完美确定的。贝叶斯学派最重要的发明就是先验概率，它表示一个概率事件在不受外界干扰下的不确定性表述，或者说是可能性。后验概率表示当一个事件在受到外界干扰时的不确定性表述。两者之间的转化依靠的是似然概率$P(y|x)$，他是在已知概率事件 $x$ 的条件下，外部干扰事件 $y$ 实际发生的情况。</p>
+<p>拿最常见疾病检测案例来举例。</p>
+<p>已知一个疾病在人群中患病概率为 0.1% ，记事件 $H$ ,而疾病检测的正确率为 99% ，如果你被检测为阳性，记事件为 $E$ ，那么真的患病的概率是多少，是 99%么？实际上并非如此，由于疾病本身在人群中患病的足够低，实际真正患病的概率十分低。来计算一下：<br>$$<br>P(H|E) = \frac{P(H)P(E|H)}{P(E)}<br>       = \frac{P(H)P(E|H)}{P(H)P(E|H)+P(-H)P(E|-H)}<br>$$</p>
+<blockquote>
+<p>$P(H|E)$ 表示在已知检测阳性的条件下，病人真正患病的概率，也就是要求的目标</p>
+<p>$P(H)$ 表示人们患病这一事件本身的先验概率，也就是题目中的 0.1%</p>
+<p>$P(E|H)$ 表示人们在已经患病的情况下，检测呈阳性的概率，即99%​</p>
+<p>$P(E)$ 表示人们检测呈阳性的概率，包含患病条件下呈阳性和未患病情况下呈阳性(简化为1%)之和</p>
+</blockquote>
+<p>$$<br>P(H|E)=\frac{0.1\cdot99}{99\cdot99+99.9\cdot1}=0.09<br>$$</p>
+<p>是的，你患病的概率就是9%，概率十分低。OK，继续计算，如果你去复诊，依旧是阳性，那确实患病的概率是多少呢？因为已经有一次阳性了，所以先验概率更新为前一次计算的后验概率 9%。<br>$$<br>P(H|E)=\frac{9\cdot99}{9\cdot99+91\cdot1}=0.907<br>$$<br>患病的概率提升为90.7%​，患病的几率急速上升。也就是说，同样一个问题下，随着我们获取先验概率多少的不同，对于同一个事件，我们的认知水平也会不同。</p>
+<p>其次，还有著名的<em>蒙特利尔三门问题</em>，简述就是有$A/B/C$三扇门，已知一门后肯定有奖品，<em>主持人事先知道奖品位置</em>，当选手选中一扇门B后，主持人打开另两扇门中没奖品的一扇门A，问选手是否选择更换选择？直接说结果，应该换。此时门B中奖概率为$1/3$，门C中奖概率为$2/3$。具体推导可以查询相关文章。</p>
+<p>上述例子表明了，直觉产生概率与真实情况存在差别，而贝叶斯网络之所以会产生这种反直觉的情况，也就是因为考虑了先验概率。当事件本身的先验概率很低时，在外界干扰下产生的后验概率也会很低。随着我们认知先验水平的不同，对事物的认识也会不同。</p>
+<p>从这个很有意思的数学现象，也可以随之推理到我们的生活中，对一件事物的认知，我们也总是随着了解信息的增多而在动态改变，这也正是贝叶斯定理所传递的先验知识的概念。</p>
+<p>以上对贝叶斯定理形成了整体概念，接下来看怎么推导出贝叶斯定理？最常见的推理贝叶斯定理的方式是从条件概率中获得，根据条件概率公式，在事件B发生的条件下事件A发生的概率为：<br>$$<br>P(A|B)=\frac{P(A\cap B)}{P(B)}<br>$$<br>同样，在事件A发生的条件下事件B发生的概率为：<br>$$<br>P(B|A)=\frac{P(A\cap B)}{P(A)}<br>$$<br>整理两式可以得到<br>$$<br>P(A|B)P(B)=P(B|A)P(A)=P(A\cap B)<br>$$<br>故此得到贝叶斯定理。可以将其进行推广多元<br>$$<br>P(A|B,C)=\frac{P(A)P(B|A)P(C|A,B)}{P(B)P(C|B)}<br>$$<br>其可由多次应用贝叶斯公式导出$P(A|B,C)=\frac{P(A,B,C)}{P(B,C)}=\frac{P(C|A,B)P(A,B)}{P(B)P(C|B)}=\frac{P(A)P(B|A)P(C|A,B)}{P(B)P(C|B)}$</p>
+<h1 id="为什么要用贝叶斯定理"><a href="#为什么要用贝叶斯定理" class="headerlink" title="为什么要用贝叶斯定理"></a>为什么要用贝叶斯定理</h1><p>关于解释为什么这样一个问题，最一般的思路也就是回答：<strong>非得这样么?</strong>  这方面的解释需要引入另一个例子，关于拼写纠错问题，也就是贝叶斯最典型推断应用的最典型的问题。问题描述为当我们看到用户输入了一个不在字典中的单词，我们需要猜测，用户真正想要输入的单词是什么呢？将问题形式化描述也就是，需要求<br>$$<br>P(猜测用户想输入的单词|用户实际输入的单词)<br>$$<br>将用户实际输入的单词记为$D$，举例为thew，猜测用户想输入的单词记为$h$，猜测可能有很多$h_1,h_2,h_3,…$，如the/thaw等，所以问题变成了求<br>$$<br>P(h_i|D)\propto P(h_i)P(D|h_i)<br>$$<br>看到条件概率自动转化为贝叶斯原理的形式进行求解。所以问题就变成了求先验概率$P(h_i)$，即the/thaw等猜测在语料库中出现的概率，<strong>本身的可能性大小</strong>；求似然概率$P(D|h_i)$，也就是<strong>这个猜测生成我们观测到的数据的可能性大小</strong>，两者的乘积。</p>
+<p>抽象解释，我们讨论一个东西的可能性，一般都是讨论的它的似然概率，也就是说在某种可能性下，得到当前结果的概率。打the时，可能手一抖多打了一个w，变成了thew，这种可能性远大于我们手抖将a打成了e的可能性，因此，我们认为the这一猜测更有可能。这其实就是在讨论thaw和the两种猜测的似然概率，但是这样的猜测的局限性主要有两点：一方面，如果两种猜测的似然概率很相似呢？假设有一个人就是经常手抖将a打成e，这一概率和他手抖多打w的几率相同，对于这种情况，先验概率就发挥了作用。另一方面，对于事件本身发生概率非常低的情况下，单独用似然概率十分片面，就比如上文中提到的患病的问题，如果单看似然概率，阳性条件下患病概率十分高，但是如果考虑到疾病本身在人群中的几率十分低，那就大大降低了判定患病的几率。也就是说即使是十分符合数据的可能性，也不一定是最好的。因为<em>观测总是不确定的</em>，很有可能强行追求符合数导致结果过拟合。</p>
+<p>此外，对贝叶斯定理的解释还包含了奥卡姆剃刀的原理，<em>如果两个理论具有相似的解释力度，那么优先选择那个更简单的</em>。在这方面的理解，来自于<a href="http://mindhacks.cn/2008/09/21/the-magical-bayesian-method/" target="_blank" rel="noopener">数学之美番外篇：平凡而又神奇的贝叶斯方法</a>，大佬关于这方面的解释十分详尽了，强烈建议阅读。</p>
+<p>在应用贝叶斯定理时，将条件概率展开，其正比于先验概率和似然概率。具体问题中先验概率往往比较直接，可以采用经验数据或专家知识之类进行确定。但是似然概率往往比较隐晦，往往通过一些表层假设来完成，比如中文分词问题的语言模型假设。其“天真性”就类比于朴素贝叶斯假设。</p>
+<p>贝叶斯定理应用方面最广泛的当属将其用于推理。关于这方面，可以看上面大佬的文章。关于贝叶斯后面我更想要介绍的是贝叶斯网络的内容。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB/" rel="tag"># 模式识别</a>
+              <a href="/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86/" rel="tag"># 贝叶斯定理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/18/firstblog/" rel="prev" title="一切都要从一只蝙蝠说起......">
+      <i class="fa fa-chevron-left"></i> 一切都要从一只蝙蝠说起......
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/22/apollo-1/" rel="next" title="Apollo基础介绍">
+      Apollo基础介绍 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#贝叶斯定理是什么"><span class="nav-number">1.</span> <span class="nav-text">贝叶斯定理是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要用贝叶斯定理"><span class="nav-number">2.</span> <span class="nav-text">为什么要用贝叶斯定理</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

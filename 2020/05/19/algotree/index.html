@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="二叉树二叉树基本概念 节点高度：从叶节点向上数，叶子节点到当前节点的最长路径  树高：根节点高度 节点深度：从根节点向下数，根节点到当前节点的最长路径 节点层数：节点深度+1  二叉树中从结构上来说，特殊的有满二叉树和完全二叉树。满二叉树即除最后一层外，全部节点都存在的二叉树；完全二叉树的定义即之后最后两层有叶节点，而且最后一层的叶节点靠左。完全二叉树的定义意义来源于二叉树的存储方式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="algotree">
+<meta property="og:url" content="http://yoursite.com/2020/05/19/algotree/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="二叉树二叉树基本概念 节点高度：从叶节点向上数，叶子节点到当前节点的最长路径  树高：根节点高度 节点深度：从根节点向下数，根节点到当前节点的最长路径 节点层数：节点深度+1  二叉树中从结构上来说，特殊的有满二叉树和完全二叉树。满二叉树即除最后一层外，全部节点都存在的二叉树；完全二叉树的定义即之后最后两层有叶节点，而且最后一层的叶节点靠左。完全二叉树的定义意义来源于二叉树的存储方式。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-19T13:30:24.000Z">
+<meta property="article:modified_time" content="2020-07-14T12:25:26.414Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="tag1">
+<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="...">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/19/algotree/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>algotree | Hexo</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?484c210630f5183e59d6283165c7b1f6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/19/algotree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          algotree
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-05-19 21:30:24" itemprop="dateCreated datePublished" datetime="2020-05-19T21:30:24+08:00">2020-05-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-14 20:25:26" itemprop="dateModified" datetime="2020-07-14T20:25:26+08:00">2020-07-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/category/" itemprop="url" rel="index"><span itemprop="name">category</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h4 id="二叉树基本概念"><a href="#二叉树基本概念" class="headerlink" title="二叉树基本概念"></a>二叉树基本概念</h4><ul>
+<li>节点高度：从叶节点向上数，叶子节点到当前节点的最长路径  树高：根节点高度</li>
+<li>节点深度：从根节点向下数，根节点到当前节点的最长路径</li>
+<li>节点层数：节点深度+1</li>
+</ul>
+<p>二叉树中从结构上来说，特殊的有满二叉树和完全二叉树。满二叉树即除最后一层外，全部节点都存在的二叉树；完全二叉树的定义即之后最后两层有叶节点，而且最后一层的叶节点靠左。完全二叉树的定义意义来源于二叉树的存储方式。</p>
+<a id="more"></a>
+
+<h4 id="二叉树存储："><a href="#二叉树存储：" class="headerlink" title="二叉树存储："></a>二叉树存储：</h4><ul>
+<li>二叉树链式存储：需要有左右节点，占用空间</li>
+<li>二叉树数组存储：当前节点i的左右子节点分别为2i与2i+1,完全二叉树数组存储最节省内存。</li>
+</ul>
+<h4 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h4><p>二叉树有前中后序三种遍历，可以通过递归来实现，遍历的时间复杂度是O(n)</p>
+<h4 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h4><p>又叫二叉搜索树，能够实现动态数据的快速查找、插入和删除，类似于散列表，但是平衡二叉查找树依旧可能比散列表好用，原因如下：散列表自身无序，排序后才能得到有序数列；散列表扩容困难，性能不稳定；散列表比较复杂，考虑因素多；散列表虽然查找时间复杂度是常量级，但是哈希冲突存在下速度不一定快。</p>
+<p>二叉查找树能够实现快速查找、删除等，原因在于树中左子树都小于根节点，右子树都大于根节点。二叉查找树的查找和插入操作都十分便捷，删除操作需要分类来进行，分无子节点、一个子节点和两个子节点三种。插入操作最终一定是叶子节点上。</p>
+<p>中序遍历二叉查找树可以得到有序数列。时间复杂度O(n)</p>
+<p>对于二叉查找树的中存在重复数据的情况，一则，可以单一节点存储多个数据；二则，可以将其视为大于当前值来存储。</p>
+<p>对于二叉查找树，其查找、插入和删除操作，时间复杂度集中在$$O(logN)$$和$$O(N)$$之间，两种极端情况分别为完全二叉树和退化至链表的情况。其与树的高度息息相关,即完全二叉树的高度近似$$O(logN)$$.</p>
+<h4 id="平衡二叉查找树——红黑树"><a href="#平衡二叉查找树——红黑树" class="headerlink" title="平衡二叉查找树——红黑树"></a>平衡二叉查找树——红黑树</h4><p>平衡二叉查找树为二叉查找树与平衡二叉树的组合体。平衡二叉树：对任意节点，其左右子树的高度相差不超过1.红黑树只是平衡二叉查找树的一种，但是应用较为广泛。红黑树将节点分为红色节点与黑色节点，红色节点不能相邻。</p>
+<p>红黑树相对于AVL树只是做到了近似平衡，但是其性能下降并不多，而且十分稳定，其插入、查找和删除操作的时间复杂度都是$$O(logN)$$,适应于工业级场景的应用。</p>
+<h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><p>针对一组数据，定义限制值与期望值，在满足限制的条件下，期望值最大；每次选择贡献最大数据；举例验证贪心算法是否最优。</p>
+<p>贪心算法并不总是能得到最优解，视野过于局限，前面的选择会影响后面选择条件下</p>
+<p>实例：</p>
+<ul>
+<li><p>分糖果：直接按照需求排序，先用最小的糖果满足最小的需求，依次知道无糖或无法满足任何一个人；</p>
+</li>
+<li><p>钱币找零：要求纸币数量最少，则先从大到小进行找零；</p>
+</li>
+<li><p>区间覆盖：n个区间中选择最多的不相交区间，首先确定整体区间左右端点，依次选择区间，使得左端点不想交的条件下右端点尽可能小，使得能够放下尽可能多的区间，</p>
+</li>
+<li><p>霍夫曼编码(不等长编码数据压缩)：根据字符出现频率的不同，给不同的字符进行不同长度的编码。利用优先级队列来生成树。首先频率最小两节点出队，汇总频率后加入队列，重复过程，直到队列为空，左子节点记0，右子节点记1；根节点到叶节点路径即霍夫曼编码</p>
+</li>
+</ul>
+<h1 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h1><p>处理问题的思想：比较适合用递归这个编程技巧来求解</p>
+<p>分解：将原问题分解为一系列子问题；解决：递归地求解各个子问题；合并：将子问题的结果合并为原问题</p>
+<p>实例</p>
+<ul>
+<li><p>二维平面N个点快速计算两个距离最近的点对</p>
+</li>
+<li><p>两个n*n的矩阵A,B,如何快速求解两矩阵乘积$$C=A*B$$</p>
+</li>
+</ul>
+<p>分治算法的应用：快排；归并排序；二分查找；递归树求算法复杂度；桶排序</p>
+<h1 id="回溯算法"><a href="#回溯算法" class="headerlink" title="回溯算法"></a>回溯算法</h1><p>应用：深度优先搜索应用；正则表达式匹配；八皇后；0-1背包；图着色；旅行商问题</p>
+<p>很多时候应用于广义的搜索问题中，从一组可能的解中找到满足要求的解，类似于枚举问题，但可以使用剪枝来优化，适合于使用递归算法来实现</p>
+<p>实例：</p>
+<ul>
+<li>0-1背包的回溯解法：</li>
+<li>正则表达式匹配：</li>
+</ul>
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tag1/" rel="tag"># tag1</a>
+              <a href="/tags/tag2/" rel="tag"># tag2</a>
+              <a href="/tags/" rel="tag"># ...</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/22/apollo-1/" rel="prev" title="Apollo基础介绍">
+      <i class="fa fa-chevron-left"></i> Apollo基础介绍
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/14/daily-record/" rel="next" title="daily_record">
+      daily_record <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树"><span class="nav-number">1.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树基本概念"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">二叉树基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树存储："><span class="nav-number">1.0.0.2.</span> <span class="nav-text">二叉树存储：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉树遍历"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">二叉树遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉查找树"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">二叉查找树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉查找树——红黑树"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">平衡二叉查找树——红黑树</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贪心算法"><span class="nav-number">2.</span> <span class="nav-text">贪心算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分治算法"><span class="nav-number">3.</span> <span class="nav-text">分治算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回溯算法"><span class="nav-number">4.</span> <span class="nav-text">回溯算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划"><span class="nav-number">5.</span> <span class="nav-text">动态规划</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
